@@ -51,7 +51,7 @@ unless you have made local modifications.
 1. Run `hugo serve` as specified above
 2. Open a second terminal
 3. Change to this git repository's directory
-4. Uncomment the `#local_backend: true` line at the top of
+4. Uncomment the `#local_backend: true` line near the top of
    `static/admin/config.yml`
 5. Run `npx decap-server` (Requires `npm` to be installed)
 

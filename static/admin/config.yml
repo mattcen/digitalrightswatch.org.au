@@ -1,3 +1,4 @@
+# Ref: https://decapcms.org/docs/configuration-options/
 #local_backend: true
 backend:
   name: github
