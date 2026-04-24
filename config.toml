@@ -169,3 +169,7 @@ logoAltText = ""
   [[module.mounts]]
     source = 'static'
     target = 'assets'
+  [module.hugoVersion]
+    extended = false
+    min = '0.135.0'
+    max = '0.153.5'
