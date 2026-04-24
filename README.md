@@ -46,6 +46,14 @@ And head to <http://localhost:1313> to view the result. Which should look
 pretty much like what we have running on <https://digitalrightswatch.org.au/>
 unless you have made local modifications.
 
+## Locally testing the CMS
+
+1. Run `hugo serve` as specified above
+2. Open a second terminal
+3. Change to this git repository's directory
+4. Uncomment the `#local_backend: true` line at the top of
+   `static/admin/config.yml`
+5. Run `npx decap-server` (Requires `npm` to be installed)
 
 ## Other stuff
 
