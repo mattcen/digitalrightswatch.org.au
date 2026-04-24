@@ -2,206 +2,290 @@
 backend:
   name: github
   #name: git-gateway
-  repo: digitalrightswatch/digitalrightswatch.org.au # Path to your GitHub repository
-  # optional, defaults to master
-  branch: main
-
-media_folder: "static/images" # Folder where user uploaded files should go
+  repo: digitalrightswatch/digitalrightswatch.org.au  # Path to your GitHub repository
+  branch: main  # Optional, defaults to master
+media_folder: "static/images"  # Folder where user uploaded files should go
 public_folder: "/images"
 site_url: https://digitalrightswatch.org.au
-publish_mode: "simple"
+publish_mode: simple
 
-collections: # A list of collections the CMS should be able to edit
+collections:  # A list of collections the CMS should be able to edit
+
   - name: "categories"
     label: "Categories"
     folder: "content/category"
     create: true
-    path: "{{slug}}/_index.md"
-    preview_path: "/categories/{{slug}}/"
+    path: '{{slug}}/_index.md'
+    preview_path: /categories/{{slug}}/
     fields:
-      - { label: "title", name: "title", widget: "string" }
-      - {
-          label: "Link title",
-          name: "linkTitle",
-          widget: "string",
-          required: false,
-        }
-      - { label: "Content", name: "body", widget: "markdown", required: false }
-      - {
-          label: "Hide from navigation",
-          name: "hideFromNav",
-          widget: "boolean",
-          required: false,
-        }
-  - name: "featured"
-    preview_path: "/featured/{{dirname}}"
-    label: "Featured Categories"
-    folder: "content/featured"
+      - label: title
+        name: title
+        widget: string
+      - label: Link title
+        name: linkTitle
+        widget: string
+        required: false
+      - label: Content
+        name: body
+        widget: markdown
+        required: false
+      - label: Hide from navigation
+        name: hideFromNav
+        widget: boolean
+        required: false
+
+  - name: featured
+    preview_path: /featured/{{dirname}}
+    label: Featured Categories
+    folder: content/featured
     create: true
-    path: "{{slug}}/_index.md"
-    fields:
-      - { label: "title", name: "title", widget: "string" }
-      - {
-          label: "Link title",
-          name: "linkTitle",
-          widget: "string",
-          required: false,
-        }
-      - { label: "Content", name: "body", widget: "markdown", required: false }
-      - {
-          label: "Maximum number of items to show",
-          name: "maxitems",
-          widget: "number",
-          required: false,
-        }
-      - {
-          label: "Article fields to show",
-          name: "includeArticleFields",
-          widget: "list",
-          required: false,
-          default: ["date", "summary", "featureImage"],
-        }
-  - name: "authors" # Used in routes, ie.: /admin/collections/:slug/edit
-    label: "Author" # Used in the UI, ie.: "New Post"
-    folder: "content/authors" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    identifier_field: "username"
     path: '{{slug}}/_index.md'
     fields:
-      - { label: "Username", name: "username", widget: "string" }
-      - { label: "Full Name", name: "name", widget: "string", required: false }
-      - { label: "Summary", name: "summary", widget: "text", required: false }
-      - { label: "Avatar", name: "image", widget: "image", required: false }
-      - label: "Images"
-        name: "images"
-        widget: "list"
+      - label: title
+        name: title
+        widget: string
+      - label: Link title
+        name: linkTitle
+        widget: string
+        required: false
+      - label: Content
+        name: body
+        widget: markdown
+        required: false
+      - label: Maximum number of items to show
+        name: maxitems
+        widget: number
+        required: false
+      - label: Article fields to show
+        name: includeArticleFields
+        widget: list
+        required: false
+        default:
+          - date
+          - summary
+          - featureImage
+
+  - name: authors  # Used in routes, ie.: /admin/collections/:slug/edit
+    label: Author  # Used in the UI, ie.: "New Post"
+    folder: content/authors  # The path to the folder where the documents are stored
+    create: true  # Allow users to create new documents in this collection
+    identifier_field: username
+    path: '{{slug}}/_index.md'
+    fields:
+      - label: Username
+        name: username
+        widget: string
+      - label: Full Name
+        name: name
+        widget: string
+        required: false
+      - label: Summary
+        name: summary
+        widget: text
+        required: false
+      - label: Avatar
+        name: image
+        widget: image
+        required: false
+      - label: Images
+        name: images
+        widget: list
         summary: '{{fields.url}}'
-        field: { label: "URL", name: "url", widget: "image" }
-      - { label: "Fediverse link", name: "fediverse", widget: "string", required: false }
-      - { label: "Instagram link", name: "instagram", widget: "string", required: false }
-      - { label: "Facebook link", name: "facebook", widget: "string", required: false }
-      - { label: "LinkedIn link", name: "linkedin", widget: "string", required: false }
-      - { label: "Bluesky link", name: "bsky", widget: "string", required: false }
-      - { label: "Email", name: "email", widget: "string", required: false }
-      - { label: "Title", name: "title", widget: "string", required: false }
-      - { label: "Organisation section", name: "section", widget: "select", options: ["board", "staff", "alum"] }
-      - { label: "Description", name: "description", widget: "text", required: false }
-      - { label: "Body", name: "body", widget: "markdown", required: false }
-  - name: "posts" # Used in routes, ie.: /admin/collections/:slug/edit
-    label: "Post" # Used in the UI, ie.: "New Post"
-    folder: "content/blog" # The path to the folder where the documents are stored
-    preview_path: "{{year}}/{{month}}/{{day}}/{{slug}}"
-    create: true # Allow users to create new documents in this collection
-    fields: # The fields each document in this collection have
-      - { label: "Draft", name: "draft", widget: "boolean", default: true }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string", required: false }
-      - { label: "URL", name: "url", widget: "string", required: false }
-      - {
-          label: "Redirect url",
-          name: "redirect_url",
-          widget: "string",
-          required: false,
-        }
-      - { label: "Tags", name: "tags", widget: "list", required: false }
-      - {
-          label: "Categories",
-          name: "category",
-          widget: "list",
-          required: false,
-        }
-      - {
-          label: "Featured Category",
-          name: "featured",
-          widget: "list",
-          required: false,
-        }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
+        field:
+          label: URL
+          name: url
+          widget: image
+      - label: Fediverse link
+        name: fediverse
+        widget: string
+        required: false
+      - label: Instagram link
+        name: instagram
+        widget: string
+        required: false
+      - label: Facebook link
+        name: facebook
+        widget: string
+        required: false
+      - label: LinkedIn link
+        name: linkedin
+        widget: string
+        required: false
+      - label: Bluesky link
+        name: bsky
+        widget: string
+        required: false
+      - label: Email
+        name: email
+        widget: string
+        required: false
+      - label: Title
+        name: title
+        widget: string
+        required: false
+      - label: Organisation section
+        name: section
+        widget: select
+        options:
+          - board
+          - staff
+          - alum
+      - label: Description
+        name: description
+        widget: text
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+        required: false
 
-      - label: "Authors"
-        name: "authors"
-        widget: "relation"
-        collection: "authors"
-        search_fields: ["username", "name"]
-        value_field: "username"
-        display_fields: ["{{username}} ({{name}})"]
+  - name: posts  # Used in routes, ie.: /admin/collections/:slug/edit
+    label: Post  # Used in the UI, ie.: "New Post"
+    folder: content/blog  # The path to the folder where the documents are stored
+    preview_path: '{{year}}/{{month}}/{{day}}/{{slug}}'
+    create: true  # Allow users to create new documents in this collection
+    fields:  # The fields each document in this collection have
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: true
+      - label: Title
+        name: title
+        widget: string
+      - label: Slug
+        name: slug
+        widget: string
+        required: false
+      - label: URL
+        name: url
+        widget: string
+        required: false
+      - label: Redirect url
+        name: redirect_url
+        widget: string
+        required: false
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+      - label: Categories
+        name: category
+        widget: list
+        required: false
+      - label: Featured Category
+        name: featured
+        widget: list
+        required: false
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Authors
+        name: authors
+        widget: relation
+        collection: authors
+        search_fields:
+          - username
+          - name
+        value_field: username
+        display_fields:
+          - '{{username}} ({{name}})'
         required: false
         multiple: true
-      - {
-          label: "Image",
-          name: "featureImage",
-          widget: "image",
-          required: false,
-        }
-      - {
-          label: "Card Image",
-          name: "cardImage",
-          widget: "image",
-          required: false,
-          hint: "Square version of the image used when showing the post as as card. If left blank, the featureImage is autocropped to the correct dimensions.",
-        }
+      - label: Image
+        name: featureImage
+        widget: image
+        required: false
+      - label: Card Image
+        name: cardImage
+        widget: image
+        required: false
+        hint: Square version of the image used when showing the post as as card. If left blank, the featureImage is autocropped to the correct dimensions.
+      - label: PDF Download File
+        name: pdfAsset
+        widget: file
+        hint: Displays in the UI as a download link at the top of the page
+        required: false
+        multiple: false
+      - label: Summary
+        name: summary
+        widget: text
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
 
-      - {
-          label: "PDF Download File",
-          name: "pdfAsset",
-          widget: "file",
-          hint: "Displays in the UI as a download link at the top of the page",
-          required: false,
-          multiple: false,
-        }
-      - { label: "Summary", name: "summary", widget: "text", required: false }
-      - { label: "Body", name: "body", widget: "markdown" }
-  - name: "pages"
-    label: "Page"
-    folder: "content" # The path to the folder where the documents are stored
-    preview_path: "{{slug}}"
-    create: true # Allow users to create new documents in this collection
-    fields: # The fields each document in this collection have
-      - { label: "Draft", name: "draft", widget: "boolean", default: true }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string", required: false }
-      - { label: "URL", name: "url", widget: "string", required: false }
-      - {
-          label: "Redirect url",
-          name: "redirect_url",
-          widget: "string",
-          required: false,
-        }
-      - { label: "Tags", name: "tags", widget: "list", required: false }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Summary", name: "summary", widget: "text", required: false }
-      - {
-          label: "Intro Blurb (description)",
-          name: "description",
-          widget: "text",
-          required: false,
-        }
-      - label: "Authors"
-        name: "authors"
-        widget: "relation"
-        collection: "authors"
-        search_fields: ["username", "name"]
-        value_field: "username"
-        display_fields: ["{{username}} ({{name}})"]
+  - name: pages
+    label: Page
+    folder: content  # The path to the folder where the documents are stored
+    preview_path: '{{slug}}'
+    create: true  # Allow users to create new documents in this collection
+    fields:  # The fields each document in this collection have
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: true
+      - label: Title
+        name: title
+        widget: string
+      - label: Slug
+        name: slug
+        widget: string
+        required: false
+      - label: URL
+        name: url
+        widget: string
+        required: false
+      - label: Redirect url
+        name: redirect_url
+        widget: string
+        required: false
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Summary
+        name: summary
+        widget: text
+        required: false
+      - label: Intro Blurb (description)
+        name: description
+        widget: text
+        required: false
+      - label: Authors
+        name: authors
+        widget: relation
+        collection: authors
+        search_fields:
+          - username
+          - name
+        value_field: username
+        display_fields:
+          - '{{username}} ({{name}})'
         required: false
         multiple: true
-      - {
-          label: "Image",
-          name: "featureImage",
-          widget: "image",
-          required: false,
-        }
-      - { label: "Body", name: "body", widget: "markdown" }
-  - name: "site_settings"
-    label: "Site Settings"
+      - label: Image
+        name: featureImage
+        widget: image
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+
+  - name: site_settings
+    label: Site Settings
     files:
-      - file: "config.yml"
+      - file: config.yml
         label: Hugo Config
         name: config
         editor:
           preview: false
         fields:
-          - { label: Site Title for Browser Tab, name: title, widget: string }
+          - label: Site Title for Browser Tab
+            name: title
+            widget: string
           - label: Params
             name: params
             widget: object
@@ -209,315 +293,315 @@ collections: # A list of collections the CMS should be able to edit
               - label: Open Graph Image
                 name: images
                 widget: list
-                field: { label: Image, name: image, widget: image }
-  - name: "about_section"
-    label: "About Section Pages"
-    folder: "content/about/"
-    path: "{{slug}}.md"
-    preview_path: "/about/{{slug}}"
-    create: true # Allow users to create new documents in this collection
-    fields: # The fields each document in this collection have
-      - { label: "Draft", name: "draft", widget: "boolean", default: true }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Body", name: "body", widget: "markdown" }
+                field:
+                  label: Image
+                  name: image
+                  widget: image
 
-  - name: "about_page"
-    label: "About Us page components"
-    preview_path: "/about"
+  - name: about_section
+    label: About Section Pages
+    folder: content/about/
+    path: '{{slug}}.md'
+    preview_path: /about/{{slug}}
+    create: true  # Allow users to create new documents in this collection
+    fields:  # The fields each document in this collection have
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: true
+      - label: Title
+        name: title
+        widget: string
+      - label: Body
+        name: body
+        widget: markdown
+
+  - name: about_page
+    label: About Us page components
+    preview_path: /about
     files:
-      - file: "content/about/includes/vision-cards.yml"
-        label: "Our Vision"
-        name: "vision_cards"
-        preview_path: "/about"
+      - file: content/about/includes/vision-cards.yml
+        label: Our Vision
+        name: vision_cards
+        preview_path: /about
         fields:
-          - { label: "Content", name: "content", widget: "markdown" }
-          - label: "Cards"
-            name: "cards"
-            widget: "list"
+          - label: Content
+            name: content
+            widget: markdown
+          - label: Cards
+            name: cards
+            widget: list
             allow_add: false
-            summary: "{{fields.title}}"
+            summary: '{{fields.title}}'
             fields:
-              - { label: "Title", name: "title", widget: "text" }
-              - label: "Icon"
-                name: "icon"
-                widget: "image"
+              - label: Title
+                name: title
+                widget: text
+              - label: Icon
+                name: icon
+                widget: image
                 choose_url: false
-                media_folder: "content/about/includes/"
+                media_folder: content/about/includes/
                 allow_multiple: false
-              - { label: "Content", name: "content", widget: "markdown" }
-
-      - file: "content/about/includes/principles.md"
-        label: "Principles"
-        preview_path: "/about"
-        name: "about_principles"
+              - label: Content
+                name: content
+                widget: markdown
+      - file: content/about/includes/principles.md
+        label: Principles
+        preview_path: /about
+        name: about_principles
         fields:
-          - { label: "Body", name: "body", widget: "markdown" }
-      - file: "content/about/includes/footer.md"
-        label: "Footer"
-        preview_path: "/about"
-        name: "about_footer"
+          - label: Body
+            name: body
+            widget: markdown
+      - file: content/about/includes/footer.md
+        label: Footer
+        preview_path: /about
+        name: about_footer
         fields:
-          - { label: "Body", name: "body", widget: "markdown" }
-
-      - file: "data/our_people.yml"
-        label: "Our People"
+          - label: Body
+            name: body
+            widget: markdown
+      - file: data/our_people.yml
+        label: Our People
         name: our_people
         fields:
-          - { label: "Enable", name: "enable", widget: "boolean" }
-          - { label: "Title", name: "title", widget: "string" }
-          - {
-              label: "Description",
-              name: "description",
-              widget: "markdown",
-              required: false,
-            }
-          - label: "Sections"
-            name: "sections"
-            widget: "list"
-            summary: "{{fields.name}}"
+          - label: Enable
+            name: enable
+            widget: boolean
+          - label: Title
+            name: title
+            widget: string
+          - label: Description
+            name: description
+            widget: markdown
+            required: false
+          - label: Sections
+            name: sections
+            widget: list
+            summary: '{{fields.name}}'
             fields:
-              - { label: "Name", name: "name", widget: "string" }
-              - label: "People"
-                name: "people"
-                widget: "list"
-                summary: "{{fields.name}}"
+              - label: Name
+                name: name
+                widget: string
+              - label: People
+                name: people
+                widget: list
+                summary: '{{fields.name}}'
                 fields:
-                  - { label: "Name", name: "name", widget: "string" }
-                  - {
-                      label: "Role",
-                      name: "role",
-                      widget: "string",
-                      required: false,
-                    }
-                  - {
-                      label: "Username",
-                      name: "username",
-                      widget: "string",
-                      required: false,
-                    }
-                  - {
-                      label: "Image",
-                      name: "image",
-                      widget: "image",
-                      required: false,
-                    }
-                  - {
-                      label: "Twitter",
-                      name: "twitter",
-                      widget: "string",
-                      required: false,
-                    }
-                  - {
-                      label: "Web",
-                      name: "web",
-                      widget: "string",
-                      required: false,
-                    }
-                  - {
-                      label: "Email",
-                      name: "email",
-                      widget: "string",
-                      required: false,
-                    }
-                  - {
-                      label: "Fediverse",
-                      name: "fediverse",
-                      widget: "string",
-                      required: false,
-                    }
-                  - {
-                      label: "Description",
-                      name: "description",
-                      widget: "markdown",
-                      required: false,
-                    }
-  - name: "shared_content"
-    label: "Shared Content"
-    files:
-      - file: "data/actionnetwork_embeds.yml"
-        label: "Action network Forms"
-        name: "actionnetwork_embeds"
-        editor:
-          preview: false
-        fields:
-          - label: "Forms"
-            name: "forms"
-            widget: "list"
-            summary: "{{fields.key}}"
-            fields:
-              - {
-                  label: "Form Key",
-                  name: "key",
-                  widget: "string",
-                  hint: "Unique identifier for this form (e.g. newsletterSignup)",
-                }
-              - {
-                  label: "Widget Wrapper ID",
-                  name: "widgetWrapperId",
-                  widget: "string",
-                  required: true,
-                  hint: "Mandatory ID for the wrapper element",
-                }
-              - {
-                  label: "Layout Class",
-                  name: "layoutClass",
-                  widget: "string",
-                  required: false,
-                  hint: "Optional CSS class for styling",
-                }
-              - {
-                  label: "Script Source URL",
-                  name: "scriptSrcUrl",
-                  widget: "string",
-                  required: true,
-                  hint: "URL to the embed script",
-                }
-              - label: "Fallback Link"
-                name: "fallbackLink"
-                widget: "object"
-                fields:
-                  - {
-                      label: "Link Text",
-                      name: "text",
-                      widget: "string",
-                      required: true,
-                    }
-                  - {
-                      label: "URL",
-                      name: "url",
-                      widget: "string",
-                      required: true,
-                    }
-                  - {
-                      label: "Disable Embed",
-                      name: "disableEmbed",
-                      widget: "boolean",
-                      default: false,
-                      hint: "Force using the fallback link instead of the embed",
-                    }
-      - file: "data/banners.yml"
-        label: "Site Banners"
-        name: "site_banners"
-        editor:
-          preview: false
-        fields:
-          - label: "Banner Content"
-            name: "content"
-            widget: "list"
-            summary: "{{fields.key}}: {{fields.title}}"
-            fields:
-              - {
-                  label: "Banner Key",
-                  name: "key",
-                  widget: "string",
-                  hint: "Unique identifier for this banner (e.g. banner_one)",
-                }
-              - { label: "Title", name: "title", widget: "string" }
-              - {
-                  label: "Description",
-                  name: "description",
-                  widget: "markdown",
-                }
-              - {
-                  label: "Button Text",
-                  name: "buttonText",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Button URL",
-                  name: "buttonUrl",
-                  widget: "string",
-                  required: false,
-                }
-              - label: "Layout"
-                name: "layout"
-                widget: "select"
-                options:
-                  ["default", "fullWidth", "fullWidthSecondary", "articleAside"]
-                default: "default"
-          - label: "Banner Layouts"
-            name: "layouts"
-            widget: "list"
-            summary: "{{fields.key}}"
-            fields:
-              - {
-                  label: "Layout Key",
-                  name: "key",
-                  widget: "string",
-                  hint: "Unique identifier for this layout (e.g. default, fullWidth)",
-                }
-              - { label: "Banner Class", name: "bannerClass", widget: "string" }
-              - { label: "Button Class", name: "buttonClass", widget: "string" }
-  - name: "homepage"
-    label: "Homepage configuration"
+                  - label: Name
+                    name: name
+                    widget: string
+                  - label: Role
+                    name: role
+                    widget: string
+                    required: false
+                  - label: Username
+                    name: username
+                    widget: string
+                    required: false
+                  - label: Image
+                    name: image
+                    widget: image
+                    required: false
+                  - label: Twitter
+                    name: twitter
+                    widget: string
+                    required: false
+                  - label: Web
+                    name: web
+                    widget: string
+                    required: false
+                  - label: Email
+                    name: email
+                    widget: string
+                    required: false
+                  - label: Fediverse
+                    name: fediverse
+                    widget: string
+                    required: false
+                  - label: Description
+                    name: description
+                    widget: markdown
+                    required: false
 
+  - name: shared_content
+    label: Shared Content
     files:
-      - file: "data/homeBlog.yml"
-        name: "homeblog"
-        label: "Homepage settings"
+      - file: data/actionnetwork_embeds.yml
+        label: Action network Forms
+        name: actionnetwork_embeds
+        editor:
+          preview: false
         fields:
-          - label: "Featured Campaigns"
-            name: "featured_campaigns"
-            widget: "object"
+          - label: Forms
+            name: forms
+            widget: list
+            summary: '{{fields.key}}'
             fields:
-              - { label: "Enabled", name: "enabled", widget: "boolean" }
-              - { label: "Title", name: "title", widget: "string" }
-              - {
-                  label: "Maximum campaigns to show",
-                  name: "max_items",
-                  widget: "number",
-                  hint: "Campaigns will be taken from the featured category 'Campaigns' ",
-                }
-          - label: "Recent Articles"
-            name: "recent_articles"
-            widget: "object"
+              - label: Form Key
+                name: key
+                widget: string
+                hint: Unique identifier for this form (e.g. newsletterSignup)
+              - label: Widget Wrapper ID
+                name: widgetWrapperId
+                widget: string
+                required: true
+                hint: Mandatory ID for the wrapper element
+              - label: Layout Class
+                name: layoutClass
+                widget: string
+                required: false
+                hint: Optional CSS class for styling
+              - label: Script Source URL
+                name: scriptSrcUrl
+                widget: string
+                required: true
+                hint: URL to the embed script
+              - label: Fallback Link
+                name: fallbackLink
+                widget: object
+                fields:
+                  - label: Link Text
+                    name: text
+                    widget: string
+                    required: true
+                  - label: URL
+                    name: url
+                    widget: string
+                    required: true
+                  - label: Disable Embed
+                    name: disableEmbed
+                    widget: boolean
+                    default: false
+                    hint: Force using the fallback link instead of the embed
+      - file: data/banners.yml
+        label: Site Banners
+        name: site_banners
+        editor:
+          preview: false
+        fields:
+          - label: Banner Content
+            name: content
+            widget: list
+            summary: '{{fields.key}}: {{fields.title}}'
             fields:
-              - { label: "Enabled", name: "enabled", widget: "boolean" }
-              - { label: "Title", name: "title", widget: "string" }
-              - {
-                  label: "More button text",
-                  name: "moreButtonText",
-                  widget: "string",
-                }
-              - {
-                  label: "Maximum recent articles to show",
-                  name: "max_items",
-                  widget: "number",
-                }
-      - file: "data/hero.yml"
-        label: "Hero"
+              - label: Banner Key
+                name: key
+                widget: string
+                hint: Unique identifier for this banner (e.g. banner_one)
+              - label: Title
+                name: title
+                widget: string
+              - label: Description
+                name: description
+                widget: markdown
+              - label: Button Text
+                name: buttonText
+                widget: string
+                required: false
+              - label: Button URL
+                name: buttonUrl
+                widget: string
+                required: false
+              - label: Layout
+                name: layout
+                widget: select
+                options:
+                  - default
+                  - fullWidth
+                  - fullWidthSecondary
+                  - articleAside
+                default: default
+          - label: Banner Layouts
+            name: layouts
+            widget: list
+            summary: '{{fields.key}}'
+            fields:
+              - label: Layout Key
+                name: key
+                widget: string
+                hint: Unique identifier for this layout (e.g. default, fullWidth)
+              - label: Banner Class
+                name: bannerClass
+                widget: string
+              - label: Button Class
+                name: buttonClass
+                widget: string
+
+  - name: homepage
+    label: Homepage configuration
+    files:
+      - file: data/homeBlog.yml
+        name: homeblog
+        label: Homepage settings
+        fields:
+          - label: Featured Campaigns
+            name: featured_campaigns
+            widget: object
+            fields:
+              - label: Enabled
+                name: enabled
+                widget: boolean
+              - label: Title
+                name: title
+                widget: string
+              - label: Maximum campaigns to show
+                name: max_items
+                widget: number
+                hint: 'Campaigns will be taken from the featured category ''Campaigns'' '
+          - label: Recent Articles
+            name: recent_articles
+            widget: object
+            fields:
+              - label: Enabled
+                name: enabled
+                widget: boolean
+              - label: Title
+                name: title
+                widget: string
+              - label: More button text
+                name: moreButtonText
+                widget: string
+              - label: Maximum recent articles to show
+                name: max_items
+                widget: number
+      - file: data/hero.yml
+        label: Hero
         name: hero
         fields:
-          - { label: "Enable", name: "enable", widget: "boolean" }
-          - { label: "Title", name: "title", widget: "string", required: false }
-          - label: "Caption"
-            name: "caption"
-            widget: "string"
+          - label: Enable
+            name: enable
+            widget: boolean
+          - label: Title
+            name: title
+            widget: string
             required: false
-          - label: "Description"
-            name: "description"
-            widget: "text"
+          - label: Caption
+            name: caption
+            widget: string
             required: false
-          - label: "Button 1 Link"
-            name: "button1link"
-            widget: "string"
+          - label: Description
+            name: description
+            widget: text
             required: false
-          - label: "Button 1 Text"
-            name: "button1text"
-            widget: "string"
+          - label: Button 1 Link
+            name: button1link
+            widget: string
             required: false
-          - label: "Button 2 Link"
-            name: "button2link"
-            widget: "string"
+          - label: Button 1 Text
+            name: button1text
+            widget: string
             required: false
-          - label: "Button 2 Text"
-            name: "button2text"
-            widget: "string"
+          - label: Button 2 Link
+            name: button2link
+            widget: string
             required: false
-          - {
-              label: "Image",
-              name: "image",
-              widget: "image",
-              media_folder: "/static/images/hero",
-            }
+          - label: Button 2 Text
+            name: button2text
+            widget: string
+            required: false
+          - label: Image
+            name: image
+            widget: image
+            media_folder: /static/images/hero
