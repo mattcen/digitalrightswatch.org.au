@@ -22,8 +22,6 @@ git submodule init
 git submodule update
 ```
 
-TODO: Lock to a specific version of the apsho theme
-
 ## Build
 
 To build the site locally:
