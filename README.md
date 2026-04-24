@@ -9,7 +9,7 @@
 
 Follow the relevant [Hugo installation instructions](https://gohugo.io/installation/) for your situation.
 
-TODO: Confirm which version we running on netlify
+The `netlify.toml` file defines the Hugo version used by Netlify, and the end of `config.toml` specifies the min/max compatible Hugo versions for the current site config.
 
 ## Set up git submodules
 
