@@ -6,7 +6,7 @@ The important work of Digital Rights Watch would not be possible without the sup
 
 ## Philanthropic Partners
 
-Digital Rights Watch are very grateful for for the philanthropic support of the following organisations, without which we wouldn't be able to effectively campaign for human rights in the digital age.
+Digital Rights Watch are very grateful for the philanthropic support of the following organisations, without which we wouldn't be able to effectively campaign for human rights in the digital age.
 
 <div>
 <table cellspacing="20" cellpadding="5">
