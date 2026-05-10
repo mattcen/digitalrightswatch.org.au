@@ -5,16 +5,16 @@ backend:
   #name: git-gateway
   repo: digitalrightswatch/digitalrightswatch.org.au  # Path to your GitHub repository
   branch: main  # Optional, defaults to master
-media_folder: "static/images"  # Folder where user uploaded files should go
-public_folder: "/images"
+media_folder: static/images  # Folder where user uploaded files should go
+public_folder: /images
 site_url: https://digitalrightswatch.org.au
 publish_mode: simple
 
 collections:  # A list of collections the CMS should be able to edit
 
-  - name: "categories"
-    label: "Categories"
-    folder: "content/category"
+  - name: categories
+    label: Categories
+    folder: content/category
     create: true
     path: '{{slug}}/_index.md'
     preview_path: /categories/{{slug}}/
@@ -550,7 +550,7 @@ collections:  # A list of collections the CMS should be able to edit
               - label: Maximum campaigns to show
                 name: max_items
                 widget: number
-                hint: 'Campaigns will be taken from the featured category ''Campaigns'' '
+                hint: Campaigns will be taken from the featured category 'Campaigns'
           - label: Recent Articles
             name: recent_articles
             widget: object
