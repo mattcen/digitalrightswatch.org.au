@@ -1,5 +1,6 @@
-
-
+{{- /*
+  Ref: https://honnef.co/articles/generating-netlify-_redirects-from-hugo/
+*/ -}}
 {{ range $p := .Site.AllPages }}
 {{- range .Aliases -}}
 {{ . }} {{ $p.RelPermalink }}
